@@ -30,6 +30,14 @@ const char* File::name() {
   return this->sFQName.c_str();
 }
 
+void File::assign(const File& file) {
+  close();
+  sFQName.assign(file.sFQName);
+  pdir.assign(file.pdir);
+  type = file.type;
+}
+
+
 string File::home(string node) {
   const char* cwd = getcwd(NULL, 0);
   stringstream srm;

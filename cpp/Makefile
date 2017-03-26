@@ -1,6 +1,7 @@
 link = ld
 cpp = c++
-opts = -std=c++14 -I../hpp/
+hpp = ../hpp/
+opts = -std=c++14 -I$(hpp)
 
 all: main.run
 
@@ -14,19 +15,19 @@ libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o
 main.o: main.cpp
 	$(cpp) $(opts) -c main.cpp
 
-File.o: File.cpp ../Headers/File.hpp
+File.o: File.cpp $(hpp)File.hpp
 	$(cpp) $(opts) -c File.cpp
 
-LogEntry.o: LogEntry.cpp ../Headers/LogEntry.hpp
+LogEntry.o: LogEntry.cpp $(hpp)LogEntry.hpp
 	$(cpp) $(opts) -c LogEntry.cpp
 
-TimeFormat.o: TimeFormat.cpp ../Headers/TimeFormat.hpp
+TimeFormat.o: TimeFormat.cpp $(hpp)TimeFormat.hpp
 	$(cpp) $(opts) -c TimeFormat.cpp
 
-TimeInfo.o: TimeInfo.cpp ../Headers/TimeInfo.hpp
+TimeInfo.o: TimeInfo.cpp $(hpp)TimeInfo.hpp
 	$(cpp) $(opts) -c TimeInfo.cpp
 
-TimeStruct.o: TimeStruct.cpp ../Headers/TimeStruct.hpp
+TimeStruct.o: TimeStruct.cpp $(hpp)TimeStruct.hpp
 	$(cpp) $(opts) -c TimeStruct.cpp
 
 # sudo apt-get install clang-format

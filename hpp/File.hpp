@@ -19,6 +19,8 @@ class File {
   File(const File& file);
   virtual ~File();
 
+  virtual void assign(const File& file);
+
   virtual string home(string node);
 
   bool exists();

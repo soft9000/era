@@ -14,5 +14,9 @@
 #include "TimeFormat.hpp"
 #include "LogEntry.hpp"
 #include "File.hpp"
+#include "AsciiChar.hpp"
+#include "LogWriter.hpp"
+#include "EzLog.hpp"
+#include "StatLog.hpp"
 
 #endif

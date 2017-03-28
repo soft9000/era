@@ -11,13 +11,18 @@ class LogEntry {
   string zMsg;
 
  public:
+  LogEntry();
   LogEntry(const char* msg);
   LogEntry(const LogEntry& obj);
+  LogEntry(const TimeInfo& entry, string msg);
   virtual ~LogEntry() {}
 
-  virtual TimeInfo time();
-  virtual string entry();
-  virtual string message();
+  bool parse(string);
+  bool sameDate(const LogEntry& ref) const;
+
+  virtual TimeInfo time() const;
+  virtual string entry() const;
+  virtual string message() const;
 };
 }
 

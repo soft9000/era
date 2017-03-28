@@ -10,8 +10,14 @@ class TimeInfo {
 
  public:
   TimeInfo();
-  TimeLocal getLocal();
-  TimeGlobal getGlobal();
+  TimeInfo(time_t atime);
+  TimeInfo(const TimeInfo& info);
+
+  time_t epoch() const;
+  void assign(const TimeInfo& info);
+
+  TimeLocal getLocal() const;
+  TimeGlobal getGlobal() const;
 };
 }
 #endif

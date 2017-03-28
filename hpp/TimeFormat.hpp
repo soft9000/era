@@ -9,6 +9,8 @@ enum FormatType { ftGlobal, ftLocal };
 
 class TimeFormat {
  public:
+  static TimeStruct Parse(string str);
+
   static string Format(const TimeStruct& time, FormatType ft);
   static string Format(const TimeGlobal& time);
   static string Format(const TimeLocal& time);

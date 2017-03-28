@@ -1,19 +1,59 @@
 link = ld
 cpp = c++
 hpp = ../hpp/
+logger = ../cpp_logger/
+ezlog = ../cpp_ezlog/
+zstring = ../cpp_zstring/
 opts = -std=c++14 -I$(hpp)
 
-all: main.run
+all: logger.run ezlog.run tezlog.run 
 
-main.run: main.o libera.a
-	$(cpp) $(opts) -o main.run main.o -L. -lera
-	exec "./main.run"
+# ::::: Target: tezlog.run ::::: 
+tezlog.run: tezlog.o libera.a
+	$(cpp) $(opts) -o tezlog.run tezlog.o -L. -lera
+	exec "./tezlog.run"
 
-libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o
-	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o
+tezlog.o: $(ezlog)tezlog.cpp
+	$(cpp) $(opts) -c $(ezlog)tezlog.cpp
 
-main.o: main.cpp
-	$(cpp) $(opts) -c main.cpp
+# ::::: Target: logger.run ::::: 
+# STUDENT / NO-LIB EXAMPLE 
+# (Will Become the EzLog Parent)
+logger.run: logcon.o LogWriter.o TimeInfo.o TimeStruct.o TimeFormat.o File.o
+	$(cpp) $(opts) -o logger.run logcon.o File.o LogWriter.o TimeInfo.o TimeStruct.o TimeFormat.o
+	exec "./logger.run"
+
+logcon.o: $(logger)logcon.cpp LogWriter.cpp $(hpp)LogWriter.hpp
+	$(cpp) $(opts) -c $(logger)logcon.cpp
+
+LogWriter.o: LogWriter.cpp $(hpp)LogWriter.hpp
+	$(cpp) $(opts) -c LogWriter.cpp
+
+# ::::: Target: ezlog.run :::::
+# USES libera, as well as LogWriter (above)
+ezlog.run: ezcon.o EzLog.o libera.a
+	$(cpp) $(opts) -o ezlog.run ezcon.o EzLog.o -L. -lera
+	exec "./ezlog.run"
+
+test_ezlog: $(ezlog)test.cpp EzLog.o LogWriter.o libera.a
+	$(cpp) $(opts) $(ezlog)test.cpp -o test_ezlog EzLog.o -L. -lera
+	exec "./test_ezlog"
+
+ezcon.o: $(ezlog)ezcon.cpp $(hpp)EzLog.hpp
+	$(cpp) $(opts) -c $(ezlog)ezcon.cpp
+
+EzLog.o: EzLog.cpp $(hpp)EzLog.hpp
+	$(cpp) $(opts) -c EzLog.cpp
+
+StatLog.o: StatLog.cpp $(hpp)StatLog.hpp EzLog.o
+	$(cpp) $(opts) -c StatLog.cpp
+
+# ::::: Common :::::
+Globals.o: $(zstring)Globals.cpp $(zstring)Globals.hpp
+	$(cpp) $(opts) -c $(zstring)Globals.cpp
+
+zstring.o: $(zstring)zstring.cpp $(zstring)zstring.hpp
+	$(cpp) $(opts) -c $(zstring)zstring.cpp
 
 File.o: File.cpp $(hpp)File.hpp
 	$(cpp) $(opts) -c File.cpp
@@ -29,6 +69,11 @@ TimeInfo.o: TimeInfo.cpp $(hpp)TimeInfo.hpp
 
 TimeStruct.o: TimeStruct.cpp $(hpp)TimeStruct.hpp
 	$(cpp) $(opts) -c TimeStruct.cpp
+
+# ::::: GNU-Style Library :::::
+libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o LogWriter.o EzLog.o StatLog.o
+	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o EzLog.o StatLog.o LogWriter.o
+
 
 # sudo apt-get install clang-format
 format:

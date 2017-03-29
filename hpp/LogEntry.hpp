@@ -12,9 +12,10 @@ class LogEntry {
 
  public:
   LogEntry();
-  LogEntry(const char* msg);
+  LogEntry(const char *msg);
   LogEntry(const LogEntry& obj);
-  LogEntry(const TimeInfo& entry, string msg);
+  LogEntry(const TimeInfo& entry, const string &msg);
+  LogEntry(const TimeStruct& entry, const string &msg);
   virtual ~LogEntry() {}
 
   bool parse(string);

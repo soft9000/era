@@ -19,6 +19,7 @@ FindDate::~FindDate() {
       delete (*it);  // just do it!
     }
   }
+  delete found;
   found = nullptr;  // better core debug info
 }
 

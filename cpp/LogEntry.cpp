@@ -16,8 +16,13 @@ LogEntry::LogEntry(const LogEntry& obj) {
   this->zMsg.assign(obj.zMsg);
 }
 
-LogEntry::LogEntry(const TimeInfo& entry, string msg) {
+LogEntry::LogEntry(const TimeInfo& entry, const string& msg) {
   zTime.assign(entry);
+  zMsg.assign(msg);
+}
+
+LogEntry::LogEntry(const TimeStruct& entry, const string& msg) {
+  zTime.assign(TimeStruct(entry).toTimeInfo());
   zMsg.assign(msg);
 }
 

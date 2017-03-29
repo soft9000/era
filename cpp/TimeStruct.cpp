@@ -4,20 +4,29 @@ namespace era01 {
 
 using namespace std;
 
+void prep(const struct tm& info) {
+  ((struct tm&)info).tm_isdst = -1;
+}
+
+
 TimeStruct::TimeStruct() {
   ::memset(&zData, 0, sizeof(struct tm));
+  prep(zData);
 }
 
 TimeStruct::TimeStruct(const TimeStruct& info) {
+  prep(info.zData);
   assign(info);
 }
 
 TimeInfo TimeStruct::toTimeInfo() {
+  prep(zData);
   TimeInfo result(::mktime(&zData));
   return result;
 }
 
 void TimeStruct::assign(const TimeStruct& info) {
+  prep(info.zData);
   ::memcpy(&zData, &(info.zData), sizeof(struct tm));
 }
 

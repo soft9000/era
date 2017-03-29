@@ -11,18 +11,20 @@ void Log(StatLog log, Stat flag, string msg) {
 }
 
 bool ScanFor(StatLog log, const LogEntry& ent1, const char *msg) {
+  bool br = false;
   vector<LogEntry*> data = log.list();
   for (auto it = data.begin(); it != data.end(); it++) {
     LogEntry* ent = (*it);
     string str = ent->message();
     if (str.find(msg) != string::npos) {
       if (ent1.sameDate(*ent)) {
-        return true;
+        br = true;
+        break;
       }
     }
   }
   log.empty(data);
-  return false;
+  return br;
 }
 
 int main(int argc, char** argv) {

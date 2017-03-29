@@ -4,16 +4,19 @@ namespace era01 {
 
 const char* FORMAT_STRING = "%04d/%02d/%02d: %02d.%02d.%02d (%s)";
 
+const char *ZONE_LOCAL = "LOCAL";
+const char *ZONE_GLOBAL = "GLOBAL";
+
 string TimeFormat::Format(const TimeStruct& time, FormatType ft) {
   char* zone = (char*)"?";
   switch (ft) {
     case FormatType::ftLocal:
-      zone = (char*)"LOCAL";
+      zone = (char*)ZONE_LOCAL;
       break;
 
     default:
     case FormatType::ftGlobal:
-      zone = (char*)"GLOBAL";
+      zone = (char*)ZONE_GLOBAL;
       break;
   }
   char buf[50];
@@ -34,6 +37,16 @@ TimeStruct TimeFormat::Parse(string str) {
   char zone[50];
   int count = sscanf(str.c_str(), FORMAT_STRING, &year, &month, &day, &hour,
                      &minute, &second, &zone);
+  TimeStruct *pzone = nullptr;
+
+  TimeInfo hack;
+  if(::strcmp(&zone[0], ZONE_LOCAL) == 0) {
+     auto pzone = hack.getLocal();
+     result.assign(pzone);
+  } else {
+     auto pzone = hack.getGlobal();
+     result.assign(pzone);
+  }
   result.year(year);
   result.month(month);
   result.day(day);

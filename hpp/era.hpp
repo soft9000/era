@@ -13,6 +13,7 @@
 #include "TimeInfo.hpp"
 #include "TimeFormat.hpp"
 #include "LogEntry.hpp"
+#include "LogSearch.hpp"
 #include "File.hpp"
 #include "AsciiChar.hpp"
 #include "LogWriter.hpp"

@@ -20,6 +20,8 @@ class TimeStruct {
 
   void assign(const TimeStruct& info);
 
+  bool sameDate(const TimeStruct& info) const;
+
   bool isDST(void) const;     // Daylight Savings Time
   int weekDay(void) const;    // Sunday as first day of week
   int julianDay(void) const;  // January 1st as first day of year

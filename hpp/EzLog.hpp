@@ -14,7 +14,7 @@ class EzLog : public LogWriter {
   bool append(string messsage);
   bool append(const LogEntry& messsage);
   vector<LogEntry*> list();
-  vector<LogEntry*> filter(TimeStruct info, int plus_minus_days);
+  long filter(LogSearch& search);
   void empty(vector<LogEntry*> data);
 };
 }

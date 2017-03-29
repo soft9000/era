@@ -58,6 +58,9 @@ zstring.o: $(zstring)zstring.cpp $(zstring)zstring.hpp
 File.o: File.cpp $(hpp)File.hpp
 	$(cpp) $(opts) -c File.cpp
 
+LogSearch.o: LogSearch.cpp $(hpp)LogSearch.hpp
+	$(cpp) $(opts) -c LogSearch.cpp
+
 LogEntry.o: LogEntry.cpp $(hpp)LogEntry.hpp
 	$(cpp) $(opts) -c LogEntry.cpp
 
@@ -71,8 +74,8 @@ TimeStruct.o: TimeStruct.cpp $(hpp)TimeStruct.hpp
 	$(cpp) $(opts) -c TimeStruct.cpp
 
 # ::::: GNU-Style Library :::::
-libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o LogWriter.o EzLog.o StatLog.o
-	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o EzLog.o StatLog.o LogWriter.o
+libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o LogWriter.o EzLog.o StatLog.o LogSearch.o
+	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o EzLog.o StatLog.o LogWriter.o LogSearch.o
 
 
 # sudo apt-get install clang-format

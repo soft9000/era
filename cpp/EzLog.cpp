@@ -32,16 +32,40 @@ vector<LogEntry*> EzLog::list() {
     string str;
     while (getline(is, str)) {
       LogEntry* entry = new LogEntry();
-      if (entry->parse(str) == false)
+      if (entry->parse(str) == false) {
+        file.close();
         throw "Log Format Error";
-      else
+      } else {
         results.push_back(entry);
+      }
     }
+    file.close();
   }
   return results;
 }
 
-vector<LogEntry*> EzLog::filter(TimeStruct info, int plus_minus_days) {}
+long EzLog::filter(LogSearch& search) {
+  long tally = 0L;
+  if (file.exists()) {
+    istream& is = file.openRead();
+    string str;
+    LogEntry* entry = new LogEntry();
+    while (getline(is, str)) {
+      if (entry->parse(str) == false) {
+        file.close();
+        throw "Log Format Error";
+      } else {
+        if (search.onFind(*entry) == false) {
+          break;  // stop requested (protocol)
+        }
+        tally++;
+      }
+    }  // while
+    delete entry;
+    file.close();
+  }
+  return tally;
+}
 
 void EzLog::empty(vector<LogEntry*> data) {
   for (auto it = data.begin(); it != data.end(); it++) {

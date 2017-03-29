@@ -8,7 +8,6 @@ void prep(const struct tm& info) {
   ((struct tm&)info).tm_isdst = -1;
 }
 
-
 TimeStruct::TimeStruct() {
   ::memset(&zData, 0, sizeof(struct tm));
   prep(zData);
@@ -28,6 +27,17 @@ TimeInfo TimeStruct::toTimeInfo() {
 void TimeStruct::assign(const TimeStruct& info) {
   prep(info.zData);
   ::memcpy(&zData, &(info.zData), sizeof(struct tm));
+}
+
+bool TimeStruct::sameDate(const TimeStruct& info) const {
+  if (day() == info.day()) {
+    if (month() == info.month()) {
+      if (year() == info.year()) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 bool TimeStruct::isDST(void) const {

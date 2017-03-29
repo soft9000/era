@@ -10,6 +10,21 @@ void Log(StatLog log, Stat flag, string msg) {
   log.append(flag, msg);
 }
 
+bool ScanFor(StatLog log, const LogEntry& ent1, const char *msg) {
+  vector<LogEntry*> data = log.list();
+  for (auto it = data.begin(); it != data.end(); it++) {
+    LogEntry* ent = (*it);
+    string str = ent->message();
+    if (str.find(msg) != string::npos) {
+      if (ent1.sameDate(*ent)) {
+        return true;
+      }
+    }
+  }
+  log.empty(data);
+  return false;
+}
+
 int main(int argc, char** argv) {
   StatLog log(File("MainTest.log"));
 
@@ -40,24 +55,27 @@ int main(int argc, char** argv) {
     Log(log, Stat::ERROR, "Error: File not found! (110)");
     return 110;
   }
+  assert(ScanFor(log, ent1, TEST_PTRN01));
 
-  bool recovered = false;
-  vector<LogEntry*> data = log.list();
-  for (auto it = data.begin(); it != data.end(); it++) {
-    LogEntry* ent = (*it);
-    string str = ent->message();
-    if (str.find(TEST_PTRN01) != string::npos) {
-      if (ent1.sameDate(*ent)) {
-        recovered = true;
-        cout << "RECOVERED: " << str << endl;
-      }
-    }
-  }
-  assert(recovered);
+  Log(log, Stat::INFO, "STEP: 120 - Deep Recovery Test.");
+  TimeInfo hack;
+  TimeGlobal local = hack.getGlobal();
+  local.year(1978);
+  local.month(3);
+  local.day(15);
+  local.hour(16);
+  local.minute(17);
+  local.second(18);
+  const char *TEST_PTRN02 = "ZTEST_PTRN02";
+  LogEntry ent2(local, TEST_PTRN02);
+  assert(log.append(ent2));
+  assert(ScanFor(log, ent2, TEST_PTRN02));
 
-  Log(log, Stat::INFO, "STEP: 120 - Entry Filtering Test.");
+ 
+  Log(log, Stat::INFO, "TODO: 130 - Entry Filtering Test.");
 
-  log.empty(data);
+  // log.empty(data);
 
+  Log(log, Stat::INFO, "Testing Success!");
   return 0;
 }

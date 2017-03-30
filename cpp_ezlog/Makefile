@@ -25,7 +25,7 @@ ezcon.o: $(ezlog)ezcon.cpp $(hpp)EzLog.hpp
 	$(cpp) $(opts) -c $(ezlog)ezcon.cpp
 
 # ::::: GNU-Style Library :::::
-libera.a: $(lib)Makefile
+libera.a:
 	cd ../lib && $(MAKE) 
 
 # sudo apt-get install clang-format

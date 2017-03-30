@@ -1,6 +1,7 @@
 link = ld
 cpp = c++
 hpp = ../hpp/
+lib = ../lib/
 logger = ../cpp_logger/
 ezlog = ../cpp_ezlog/
 zstring = ../cpp_zstring/
@@ -10,7 +11,7 @@ all: logger.run ezlog.run tezlog.run
 
 # ::::: Target: tezlog.run ::::: 
 tezlog.run: tezlog.o libera.a
-	$(cpp) $(opts) -o tezlog.run tezlog.o -L. -lera
+	$(cpp) $(opts) -o tezlog.run tezlog.o -L$(lib) -lera
 	exec "./tezlog.run"
 
 tezlog.o: $(ezlog)tezlog.cpp
@@ -32,11 +33,11 @@ LogWriter.o: LogWriter.cpp $(hpp)LogWriter.hpp
 # ::::: Target: ezlog.run :::::
 # USES libera, as well as LogWriter (above)
 ezlog.run: ezcon.o EzLog.o libera.a
-	$(cpp) $(opts) -o ezlog.run ezcon.o EzLog.o -L. -lera
+	$(cpp) $(opts) -o ezlog.run ezcon.o EzLog.o -L$(lib) -lera
 	exec "./ezlog.run"
 
 test_ezlog: $(ezlog)test.cpp EzLog.o LogWriter.o libera.a
-	$(cpp) $(opts) $(ezlog)test.cpp -o test_ezlog EzLog.o -L. -lera
+	$(cpp) $(opts) $(ezlog)test.cpp -o test_ezlog EzLog.o -L$(lib) -lera
 	exec "./test_ezlog"
 
 ezcon.o: $(ezlog)ezcon.cpp $(hpp)EzLog.hpp
@@ -74,15 +75,13 @@ TimeStruct.o: TimeStruct.cpp $(hpp)TimeStruct.hpp
 	$(cpp) $(opts) -c TimeStruct.cpp
 
 # ::::: GNU-Style Library :::::
-libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o LogWriter.o EzLog.o StatLog.o LogSearch.o
-	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o EzLog.o StatLog.o LogWriter.o LogSearch.o
-
+libera.a: $(lib)Makefile
+	cd ../lib && $(MAKE) 
 
 # sudo apt-get install clang-format
 format:
 	find .. -type f -name "*.hpp" -exec clang-format -style=Chromium -i "{}" ";"
 	find .. -type f -name "*.cpp" -exec clang-format -style=Chromium -i "{}" ";"
-
 
 clean:
 	rm -f *.o

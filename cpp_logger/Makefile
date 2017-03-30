@@ -24,7 +24,7 @@ logcon.o: $(logger)logcon.cpp $(hpp)LogWriter.hpp
 	$(cpp) $(opts) -c $(logger)logcon.cpp
 
 # ::::: GNU-Style Library :::::
-libera.a: $(lib)Makefile
+libera.a:
 	cd ../lib && $(MAKE) 
 
 # sudo apt-get install clang-format

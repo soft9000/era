@@ -4,6 +4,9 @@ hpp = ../hpp/
 core = ../cpp/
 opts = -std=c++14 -I$(hpp)
 
+OBJS = TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o \
+       File.o LogWriter.o EzLog.o StatLog.o LogSearch.o
+
 all: libera.a clean
 
 LogWriter.o: $(core)LogWriter.cpp $(hpp)LogWriter.hpp
@@ -34,9 +37,9 @@ TimeStruct.o: $(core)TimeStruct.cpp $(hpp)TimeStruct.hpp
 	$(cpp) $(opts) -c $(core)TimeStruct.cpp
 
 # ::::: GNU-Style Library :::::
-libera.a: TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o LogWriter.o EzLog.o StatLog.o LogSearch.o
-	ar rcs libera.a TimeInfo.o TimeStruct.o TimeFormat.o LogEntry.o File.o EzLog.o StatLog.o LogWriter.o LogSearch.o
+libera.a: $(OBJS)
+	ar rcs libera.a $(OBJS)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 

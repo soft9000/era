@@ -1,0 +1,16 @@
+CC = c++
+CFLAGS = -std=c++14 -I../hpp/
+
+all: *.o libera.a 
+
+*.o : *.cpp
+	$(CC) $(CFLAGS) -c *.cpp
+
+libera.a: *.o
+	ar rcs libera.a *.o
+	ls *.a
+
+clean:
+	rm -f *.o
+	rm -f *.a
+

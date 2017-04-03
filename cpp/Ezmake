@@ -1,16 +1,18 @@
 CC = c++
 CFLAGS = -std=c++14 -I../hpp/
+OBJS = *.o
 
-all: *.o libera.a 
 
-*.o : *.cpp
+all: $(OBJS) libera.a 
+
+$(OBJS) : *.cpp
 	$(CC) $(CFLAGS) -c *.cpp
 
-libera.a: *.o
-	ar rcs libera.a *.o
+libera.a: $(OBJS)
+	ar rcs libera.a $(OBJS)
 	ls *.a
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 	rm -f *.a
 

@@ -17,6 +17,10 @@ ezlog.run: logcon.o libera.a
 	$(cpp) $(opts) -o ezlog.run logcon.o -L$(lib) -lera
 	exec "./ezlog.run"
 
+ezlog: logcon.o libera.a
+	$(cpp) $(opts) -o ezlog logcon.o -L$(lib) -lera
+	ls -al ezlog
+
 tlogwriter.o: $(logger)tlogwriter.cpp
 	$(cpp) $(opts) -c $(logger)tlogwriter.cpp
 

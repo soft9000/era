@@ -42,7 +42,7 @@ void File::assign(const File& file) {
 }
 
 string File::home(string node) {
-  const char* cwd = getcwd(NULL, 0);
+  const char* cwd = getcwd(nullptr, 0);
   stringstream srm;
   srm << cwd;
   if (this->pdir.find("\\") != -1) {
@@ -81,7 +81,7 @@ ostream& File::openWrite(FileType at) {
 ostream& File::openAppend(FileType at) {
   close();
   delete pIOStream;
-  pIOStream = NULL;
+  pIOStream = nullptr;
   pIOStream = new fstream;
 
   if (at == AT_BINARY)
@@ -94,7 +94,7 @@ ostream& File::openAppend(FileType at) {
 iostream& File::openReadWrite(FileType at) {
   close();
   delete pIOStream;
-  pIOStream = NULL;
+  pIOStream = nullptr;
   pIOStream = new fstream;
 
   if (at == AT_BINARY)
@@ -105,9 +105,9 @@ iostream& File::openReadWrite(FileType at) {
 }
 
 void File::close(void) {
-  if (pIOStream != NULL)
+  if (pIOStream != nullptr)
     pIOStream->close();
-  pIOStream = NULL;
+  pIOStream = nullptr;
 }
 
 bool File::remove(void) {

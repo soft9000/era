@@ -11,7 +11,7 @@ class File {
  private:
   string sFQName, pdir;
   FileType type = FileType::AT_NONE;
-  fstream* pIOStream = NULL;
+  fstream* pIOStream = nullptr;
 
  public:
   File();

@@ -9,8 +9,8 @@ File::File() {
 }
 
 File::File(string fname) {
-  if (this->pdir.find("\\") == -1) {
-    if (this->pdir.find("/") == -1) {
+  if (fname.find("\\") == -1) {
+    if (fname.find("/") == -1) {
       fname = home(fname);
     }
   }
@@ -18,7 +18,7 @@ File::File(string fname) {
 }
 
 File::File(const File& file) {
-  this->sFQName = string(file.sFQName);
+  this->sFQName.assign(file.sFQName);
   this->type = file.type;
 }
 
@@ -37,21 +37,19 @@ FileType File::mode() {
 void File::assign(const File& file) {
   close();
   sFQName.assign(file.sFQName);
-  pdir.assign(file.pdir);
   type = file.type;
 }
 
 string File::home(string node) {
-  const char* cwd = getcwd(nullptr, 0);
+  string cwd = getcwd(nullptr, 0);
   stringstream srm;
   srm << cwd;
-  if (this->pdir.find("\\") != -1) {
+  if (cwd.find("\\") != -1) {
     srm << "\\";
   } else {
     srm << "/";
   }
   srm << node << ends;
-  delete cwd;  // stop a leak
   return srm.str();
 }
 

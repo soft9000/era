@@ -9,7 +9,7 @@ enum FileType { AT_TEXT, AT_BINARY, AT_NONE };
 
 class File {
  private:
-  string sFQName, pdir;
+  string sFQName;
   FileType type = FileType::AT_NONE;
   fstream* pIOStream = nullptr;
 

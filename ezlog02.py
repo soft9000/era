@@ -4,7 +4,7 @@ Mission: Create + append a console-line message to 'logger.log' in the pwd.
 Project: Python 4000, Linux & DevOps (Udemy)
 URL:     https://www.udemy.com/course/python-4000-gnu-devops
 File:    ezlog.py
-Version: 3.0 (list/read update & test case)
+Version: 3.1 (update feature & test case)
 """
 import os
 import os.path
@@ -63,6 +63,41 @@ class EzLog():
         except Exception as ex:
             raise ex
 
+    Which = None
+    @staticmethod
+    def Update(message):
+        if EzLog.Which == None:
+            EzLog.Which = int(message)
+            return
+        if EzLog.Which < 1:
+            print(f"Ignoring {EzLog.Which}...")
+            return
+        temp = EzLog.LOGFILE + "~"
+        with open(temp, 'w') as fout:
+            with open(EzLog.LOGFILE) as fin:
+                goal = EzLog.Which - 1
+                try:
+                    for which in range(EzLog.Which):
+                        line = fin.readline()
+                        if not line:
+                            break; # eof!
+                        if which != goal:
+                            fout.write(line)
+                    if which != goal:
+                        raise Exception() # trigger, only
+                    fout.write(str(EzLog(message)))
+                    try:
+                        fout.writelines(fin.readlines())
+                    except Exception as ex:
+                        pass
+                except Exception as ex:
+                    fout.close()
+                    os.unlink(temp)
+                    print(f"Ignored: No line #{EzLog.Which} in {EzLog.LOGFILE}.")
+                    return
+        os.unlink(EzLog.LOGFILE)
+        os.rename(temp, EzLog.LOGFILE)
+
 
 if __name__ == '__main__':
     import argparse
@@ -74,13 +109,23 @@ if __name__ == '__main__':
                         nargs=1,
                         type=EzLog.List,
                         help="List recent messages")
+    parser.add_argument("-u", "--update",
+                        nargs=argparse.REMAINDER, # 'Ya THINK? ;^)
+                        type=EzLog.Update,
+                        help="Set message `#` to `message`")
+    # parser.parse_args("-u 1 This is an update.".split()) # Nope: Use quotes!
     if os.path.exists(EzLog.LOGFILE):
         os.unlink(EzLog.LOGFILE)
     parser.parse_args(["-c", "This One."])
     parser.parse_args(["-c", "This Two."])
     parser.parse_args(["-c", "This Three."])
     parser.parse_args(["-c", "This Four."])
-    parser.parse_args(["-l", "1"])
-    parser.parse_args(["-l", "11"])
-    parser.parse_args(["-l", "0"])
-    parser.parse_args(["-l", "-1"])
+    parser.parse_args(["-u", '1', "This 1."])
+    EzLog.Which = None # Reset!
+    parser.parse_args(["-u", '3', "This 3."])
+    EzLog.Which = None
+    parser.parse_args(["-u", '-1', "This is evil."])
+    EzLog.Which = None
+    parser.parse_args(["-u", '0', "This is evil."])
+    EzLog.Which = None
+    parser.parse_args(["-u", '22', "This is evil."])

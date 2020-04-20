@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """ 
-Mission: Create + append a console-line message to 'logger.log' in the pwd.
+Mission: Support C.R.U.D + S operations upon the EzLog.LOGFILE.
 Project: Python 4000, Linux & DevOps (Udemy)
 URL:     https://www.udemy.com/course/python-4000-gnu-devops
 File:    ezlog.py
-Version: 3.3 (BONUS: Search feature & test case)
+Version: 3.0 (Final Release)
 """
 import os
 import os.path
@@ -13,6 +13,8 @@ from email import utils
 
 class EzLog():
 
+    RunDone = None
+    Which   = None
     LOGFILE = "./logger.log"
 
     def __init__(self, message = ''):
@@ -38,12 +40,13 @@ class EzLog():
 
     @staticmethod
     def Create(message):
+        EzLog.RunDone = None
         entry = EzLog(message)
         with open(EzLog.LOGFILE, "a") as fp:
             if entry.is_null():
                 entry.message = "This is a test"
             fp.write(str(entry))
-        print("Logged.")
+        EzLog.RunDone = "Create"
 
     @staticmethod
     def List(message):
@@ -56,14 +59,13 @@ class EzLog():
                 for which in range(nelem):
                     line = fh.readline()
                     if not line:
-                        print("(eof)")
-                        return
+                        break
                     else:
                         print(f"{which+1}.) {line.strip()}")
         except Exception as ex:
             raise ex
+        EzLog.RunDone = "List"
 
-    Which = None
     @staticmethod
     def Update(message):
         if EzLog.Which == None:
@@ -97,6 +99,7 @@ class EzLog():
                     return
         os.unlink(EzLog.LOGFILE)
         os.rename(temp, EzLog.LOGFILE)
+        EzLog.RunDone = "Update"
 
     @staticmethod
     def Delete(message):
@@ -131,6 +134,7 @@ class EzLog():
             if os.path.exists(temp):
                 os.unlink(EzLog.LOGFILE)
                 os.rename(temp, EzLog.LOGFILE)
+        EzLog.RunDone = "Delete"
 
     @staticmethod
     def Search(message):
@@ -141,35 +145,34 @@ class EzLog():
             for ss, line in enumerate(fh, 1):
                 if line.find(message) != -1:
                     print(f"{ss}.) {line}", end='')
+        EzLog.RunDone = "Search"
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--create",
+                        nargs=argparse.REMAINDER,
                         type=EzLog.Create,
-                        help="Log message")
+                        help='log quoted "message"')
+    parser.add_argument("-u", "--update",
+                        nargs=argparse.REMAINDER,
+                        type=EzLog.Update,
+                        help='set list (-l) # to quoted "message"')
     parser.add_argument("-l", "--list",
                         nargs=1,
                         type=EzLog.List,
-                        help="List recent messages")
-    parser.add_argument("-u", "--update",
-                        nargs=argparse.REMAINDER, # 'Ya THINK? ;^)
-                        type=EzLog.Update,
-                        help="Set message `#` to `message`")
+                        help="list recent messages")
     parser.add_argument("-d", "--delete",
                         nargs=1,
                         type=EzLog.Delete,
-                        help="Delete a log entry")
+                        help='delete list (-l) entry #')
     parser.add_argument("-s", "--search",
                         type=EzLog.Search,
-                        help="Search log entries")
-    if os.path.exists(EzLog.LOGFILE):
-        os.unlink(EzLog.LOGFILE)
-    parser.parse_args(["-c", "This One."])
-    parser.parse_args(["-c", "This Two."])
-    parser.parse_args(["-c", "This Three."])
-    parser.parse_args(["-c", "This Four."])
-    parser.parse_args(["--search", 'Three'])
-    parser.parse_args(["-s", 'One'])
-    parser.parse_args(["-s", 'This'])
-    parser.parse_args(["-s", 'Peanut'])
+                        help="search log entries")
+    # parse = parser.parse_args()
+    # print(parse)
+    parser.parse_args()
+    if not EzLog.RunDone:
+        parser.print_help()
+    else:
+        print(f"EzLog: {EzLog.RunDone} Completed.")

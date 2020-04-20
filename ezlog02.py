@@ -4,7 +4,7 @@ Mission: Create + append a console-line message to 'logger.log' in the pwd.
 Project: Python 4000, Linux & DevOps (Udemy)
 URL:     https://www.udemy.com/course/python-4000-gnu-devops
 File:    ezlog.py
-Version: 3.2 (single log-entry removal / deletion feature & test case)
+Version: 3.3 (BONUS: Search feature & test case)
 """
 import os
 import os.path
@@ -132,6 +132,15 @@ class EzLog():
                 os.unlink(EzLog.LOGFILE)
                 os.rename(temp, EzLog.LOGFILE)
 
+    @staticmethod
+    def Search(message):
+        if not message:
+            return
+        print(f'Searching for "{message}" in {EzLog.LOGFILE} ...')
+        with open(EzLog.LOGFILE) as fh:
+            for ss, line in enumerate(fh, 1):
+                if line.find(message) != -1:
+                    print(f"{ss}.) {line}", end='')
 
 if __name__ == '__main__':
     import argparse
@@ -151,16 +160,16 @@ if __name__ == '__main__':
                         nargs=1,
                         type=EzLog.Delete,
                         help="Delete a log entry")
+    parser.add_argument("-s", "--search",
+                        type=EzLog.Search,
+                        help="Search log entries")
     if os.path.exists(EzLog.LOGFILE):
         os.unlink(EzLog.LOGFILE)
     parser.parse_args(["-c", "This One."])
     parser.parse_args(["-c", "This Two."])
     parser.parse_args(["-c", "This Three."])
     parser.parse_args(["-c", "This Four."])
-    parser.parse_args(["-d", '1'])
-    parser.parse_args(["-d", '3'])
-    parser.parse_args(["-d", '-1'])
-    parser.parse_args(["-d", '0'])
-    parser.parse_args(["-d", '1']) # extended!
-    parser.parse_args(["-d", '1'])
-    parser.parse_args(["-d", '1'])
+    parser.parse_args(["--search", 'Three'])
+    parser.parse_args(["-s", 'One'])
+    parser.parse_args(["-s", 'This'])
+    parser.parse_args(["-s", 'Peanut'])

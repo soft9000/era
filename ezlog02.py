@@ -4,7 +4,7 @@ Mission: Create + append a console-line message to 'logger.log' in the pwd.
 Project: Python 4000, Linux & DevOps (Udemy)
 URL:     https://www.udemy.com/course/python-4000-gnu-devops
 File:    ezlog.py
-Version: 3.1 (update feature & test case)
+Version: 3.2 (single log-entry removal / deletion feature & test case)
 """
 import os
 import os.path
@@ -98,6 +98,40 @@ class EzLog():
         os.unlink(EzLog.LOGFILE)
         os.rename(temp, EzLog.LOGFILE)
 
+    @staticmethod
+    def Delete(message):
+        temp = EzLog.LOGFILE + "~"
+        try:
+            nelem = int(message)
+            if nelem < 1:
+                print(f"Ignoring {nelem}...")
+                return
+            goal = nelem - 1
+            with open(temp, 'w') as fout:
+                with open(EzLog.LOGFILE) as fin:
+                    try:
+                        for which in range(nelem):
+                            line = fin.readline()
+                            if not line:
+                                break; # eof!
+                            if which == goal:
+                                print("Removing:", line, end='') #stripless
+                            else:
+                                fout.write(line)
+                        if which != goal:
+                            raise Exception() # entry not found.
+                        fout.writelines(fin.readlines())
+                    except Exception as ex:
+                        print(f"No log entry #{nelem}.")
+                        fout.close()
+                        os.unlink(temp)
+        except Exception as ex:
+            raise ex
+        finally:
+            if os.path.exists(temp):
+                os.unlink(EzLog.LOGFILE)
+                os.rename(temp, EzLog.LOGFILE)
+
 
 if __name__ == '__main__':
     import argparse
@@ -113,19 +147,20 @@ if __name__ == '__main__':
                         nargs=argparse.REMAINDER, # 'Ya THINK? ;^)
                         type=EzLog.Update,
                         help="Set message `#` to `message`")
-    # parser.parse_args("-u 1 This is an update.".split()) # Nope: Use quotes!
+    parser.add_argument("-d", "--delete",
+                        nargs=1,
+                        type=EzLog.Delete,
+                        help="Delete a log entry")
     if os.path.exists(EzLog.LOGFILE):
         os.unlink(EzLog.LOGFILE)
     parser.parse_args(["-c", "This One."])
     parser.parse_args(["-c", "This Two."])
     parser.parse_args(["-c", "This Three."])
     parser.parse_args(["-c", "This Four."])
-    parser.parse_args(["-u", '1', "This 1."])
-    EzLog.Which = None # Reset!
-    parser.parse_args(["-u", '3', "This 3."])
-    EzLog.Which = None
-    parser.parse_args(["-u", '-1', "This is evil."])
-    EzLog.Which = None
-    parser.parse_args(["-u", '0', "This is evil."])
-    EzLog.Which = None
-    parser.parse_args(["-u", '22', "This is evil."])
+    parser.parse_args(["-d", '1'])
+    parser.parse_args(["-d", '3'])
+    parser.parse_args(["-d", '-1'])
+    parser.parse_args(["-d", '0'])
+    parser.parse_args(["-d", '1']) # extended!
+    parser.parse_args(["-d", '1'])
+    parser.parse_args(["-d", '1'])

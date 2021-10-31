@@ -1,3 +1,9 @@
+# AboutTime: EzLog Console Logger
+The Ezlog C/C++ logging applicaton updates an `.ezlog` file. The `.ezlog` file can also be monitored & updated in real-time by the [AboutTime Desktop](https://github.com/soft9000/AboutTime/tree/master/AboutTimeDesktop) GUI.
+
+# AboutTime: Python Logger
+The [Python Editions](https://github.com/soft9000/era/blob/master/ezlog03.py) are stand alone. -Part of my [DevOps](https://www.udemy.com/course/python-4000-gnu-devops) educational opportunuty.
+
 # era
 Simple &amp; effective date, time, and modern ezlog-style logging / support for GNU C++ .
 

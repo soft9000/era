@@ -9,7 +9,7 @@ Binding it all together, the `era` project is about simple &amp; effective date,
 
 Both are also used by ["Python 4000: Linux Commands & DevOps Automation"](https://www.udemy.com/course/python-4000-gnu-devops)
 
-Pythoneers looking for the latest version of 'ezlog.py' should be using ezlog03.py. Just download, then rename it?
+Pythoneers looking for the latest version of 'ezlog.py' should be using [ezlog03.py](https://github.com/soft9000/era/blob/master/ezlog03.py). Just download, then rename it?
 
 Students looking to see the testing versions - as discussed in the training (above) - can follow the UML Use-Case Named Deltas, as checked-in, in their video-presentatin order, for ezlog02.py, as well.
 

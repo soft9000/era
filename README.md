@@ -7,18 +7,19 @@ Evolving across the decades, today the purpose of **ERA** is to:
 
 (3) Use Python 3 to create our own _customizable_ logging format!
 
-# Technologies
-The **ERA Project** can be re-created wherever the GNU toolchain is installed. Those unfamiliar with how to use GNU tools might wish to enroll in the [GNU Tool Primer](https://www.udemy.com/course/the-gnu-tool-primer/?referralCode=E858B2C2AC9CD872A100).
-
-# AboutTime: EzLog GUI
-The Ezlog C/C++ logging application updates an `.ezlog` file. The `.ezlog` file can also be monitored & updated in real-time from Java using the [AboutTime Desktop](https://github.com/soft9000/AboutTime/tree/master/AboutTimeDesktop) GUI.
-
 Here is an overview of what [AboutTime can do](https://www.youtube.com/watch?v=ohJfGX-EjoU).
 
-# Python Logger
+
+## Technologies
+The **ERA Project** can be re-created wherever the GNU toolchain is installed. Those unfamiliar with how to use GNU tools might wish to enroll in the [GNU Tool Primer](https://www.udemy.com/course/the-gnu-tool-primer/?referralCode=E858B2C2AC9CD872A100).
+
+## AboutTime: EzLog GUI
+The Ezlog C/C++ logging application updates an `.ezlog` file. The `.ezlog` file can also be monitored & updated in real-time from Java using the [AboutTime Desktop](https://github.com/soft9000/AboutTime/tree/master/AboutTimeDesktop) GUI.
+
+## Python Logger
 The [Python Editions](https://github.com/soft9000/era/blob/master/ezlog03.py) are stand alone. -Part of my [DevOps](https://www.udemy.com/course/python-4000-gnu-devops/?referralCode=E04F0744698A4BE930D7) educational opportunity.
 
-# The `era` Project
+## The `era` Project
 Binding it all together, the `era` project is about simple &amp; effective date, time, and modern ezlog-style logging @ the console. C++ is the core - Java can be used for a stellar visualization. -The Python 3 edition is a new all-in-one project that we can enjoy without using anything else.
 
 Pythoneers looking for the latest version of 'ezlog.py' should be using [ezlog03.py](https://github.com/soft9000/era/blob/master/ezlog03.py). Just download, then rename it?

@@ -1,7 +1,7 @@
 # Mission
 Evolving across the decades, today the purpose of **ERA** is to:
 
-(1) Allow us to use any **C**ommand **L**ine User **I**nterface (**CLI**) to maintain our events & messages in readily editable test files.
+(1) Allow us to use any **C**ommand **L**ine User **I**nterface (**CLI**) to maintain our events & messages in readily editable text files.
 
 (2) Permit us to work on those files between that **CLI** and a cross-platform **G**raphical **U**ser **I**nterface (**GUI**.)
 

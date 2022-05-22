@@ -2,7 +2,9 @@
 Evolving across the decades, today the purpose of **ERA** is to:
 
 (1) Allow us to use any **C**ommand **L**ine User **I**nterface (**CLI**) to manage message in readily editable test files.
+
 (2) Permit us to work on those files between that **CLI** and a cross-platform **G**raphical **U**ser **I**nterface (**GUI**.)
+
 (3) Use Python 3 to create our own _customizable_ logging format!
 
 # Technologies

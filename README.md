@@ -1,3 +1,5 @@
+![Era Logo](https://github.com/soft9000/era/blob/master/EraNamespace.png)
+
 # Mission
 Evolving across the decades, today the purpose of **ERA** is to:
 

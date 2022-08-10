@@ -26,6 +26,10 @@ Binding it all together, the `era` project is about simple &amp; effective date,
 
 Pythoneers looking for the latest version of 'ezlog.py' should be using [ezlog03.py](https://github.com/soft9000/era/blob/master/ezlog03.py). Just download, then rename it?
 
+## zSupport?
+If you want to support the effort, I seek no donations. Instead, simply feel free to purchase one of [my educational](https://www.udemy.com/user/randallnagy2/) or [printed](https://www.amazon.com/Randall-Nagy/e/B08ZJLH1VN?ref=sr_ntt_srch_lnk_1&qid=1660050704&sr=8-1) productions?
+
+
 Students looking to see the testing versions - as discussed in the training (above) - can follow the UML Use-Case Named Deltas, as checked-in, in their video-presentation order, for ezlog02.py, as well.
 
 Folks looking to learn more about Python 3 can join us at [Python3 Training](https://www.facebook.com/groups/Python3Training) ... as of this week, we're almost over 20,000 'Pythoneers strong!

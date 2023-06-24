@@ -12,8 +12,10 @@ Evolving across the decades, today the purpose of **ERA** is to:
 Here is an overview of what [AboutTime can do](https://www.youtube.com/watch?v=ohJfGX-EjoU).
 
 
-## Technologies
-The **ERA Project** can be re-created wherever the GNU toolchain is installed. Those unfamiliar with how to use GNU tools might wish to enroll in the [GNU Tool Primer](https://www.udemy.com/course/the-gnu-tool-primer/?referralCode=E858B2C2AC9CD872A100).
+## Online Education
+The **ERA Project** can be re-created wherever the GNU toolchain is installed. 
+
+If you are do not know how to use GNU Make, Makefiles, or simply need a quick review then you can enroll in our [The GNU Make and C++ Programmer's Primer](https://www.udemy.com/course/the-gnu-tool-primer/?referralCode=E858B2C2AC9CD872A100) educational opportunity.
 
 ## AboutTime: EzLog GUI
 The Ezlog C/C++ logging application updates an `.ezlog` file. The `.ezlog` file can also be monitored & updated in real-time from Java using the [AboutTime Desktop](https://github.com/soft9000/AboutTime/tree/master/AboutTimeDesktop) GUI.

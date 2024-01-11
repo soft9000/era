@@ -10,7 +10,7 @@ FindDate::FindDate(const TimeStruct& day) {
 int FindDate::size() {
   if (found != nullptr)
     return found->size();
-  0;
+  return 0;
 }
 
 FindDate::~FindDate() {

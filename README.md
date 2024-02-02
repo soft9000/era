@@ -7,7 +7,7 @@ Evolving across the decades, today the purpose of **ERA** is to:
 
 (2) Permit us to work on those files between that **CLI** and a cross-platform **G**raphical **U**ser **I**nterface (**GUI**.)
 
-(3) Use Python 3 to create our own _customizable_ logging format!
+(3) Use Python 3 (optional!) to create our own _customizable_ logging format!
 
 Here is an overview of what [AboutTime can do](https://www.youtube.com/watch?v=ohJfGX-EjoU).
 
